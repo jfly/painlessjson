@@ -42,10 +42,13 @@ try:
                 else:
                     put(user, domain, val)
                     result['success'] = True
-            print "Content-type: application/json\r\n\r\n",
+
+            contentType = 'application/json'
             data = json.dumps(results)
             if callback != None:
+                contentType = 'application/javascript'
                 data = '%s(%s)' % ( callback, data )
+            print "Content-type: %s\r\n\r\n" % type,
             print data
         else:
             import sys
