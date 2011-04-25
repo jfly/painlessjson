@@ -7,8 +7,8 @@ import anydbm, os
 def key(user, domain):
     return '%s@%s' % ( user, domain )
 
-def put(user, domain, val):
-    db[key(user, domain)] = val
+def put(user, domain, value):
+    db[key(user, domain)] = value
 
 def get(user, domain):
     k = key(user, domain)
@@ -29,18 +29,19 @@ try:
             form = cgi.FieldStorage()
             user = form.getfirst('user')
             domain = form.getfirst('domain')
-            val = form.getfirst('val')
+            value = form.getfirst('value')
             callback = form.getfirst('callback')
 
             result = {}
             result['success'] = False
             if user != None and domain != None:
-                if val is None:
-                    val = get(user, domain)
-                    result['val'] = val
+                if value is None:
+                    value = get(user, domain)
+                    result['value'] = value
                     result['success'] = True
                 else:
-                    put(user, domain, val)
+                    put(user, domain, value)
+                    result['value'] = value
                     result['success'] = True
 
             contentType = 'application/json'
@@ -56,10 +57,10 @@ try:
                 _, user, domain = sys.argv
                 print get(user, domain)
             elif len(sys.argv) == 4:
-                _, user, domain, val = sys.argv
-                put(user, domain, val)
+                _, user, domain, value = sys.argv
+                put(user, domain, value)
             else:
-                print 'Usage: %s user domain val' % sys.argv[0]
+                print 'Usage: %s user domain value' % sys.argv[0]
                 sys.exit(1)
 
 finally:

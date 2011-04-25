@@ -11,13 +11,13 @@ painlessjson = function(url) {
             onComplete: callback
         }).send();
     };
-    this.put = function(user, domain, val, callback) {
+    this.put = function(user, domain, value, callback) {
         var jsonp = new Request.JSONP({
             url: url,
             data: {
                 user: user,
                 domain: domain,
-                val: val
+                value: value
             },
             onComplete: callback
         }).send();
