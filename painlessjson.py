@@ -43,17 +43,20 @@ try:
                     put(user, domain, val)
                     result['success'] = True
             print "Content-type: application/json\r\n\r\n",
-            print(json.dumps(result))
+            data = json.dumps(results)
+            if callback != None:
+                data = '%s(%s)' % ( callback, data )
+            print data
         else:
             import sys
             if len(sys.argv) == 3:
                 _, user, domain = sys.argv
-                print(get(user, domain))
+                print get(user, domain)
             elif len(sys.argv) == 4:
                 _, user, domain, val = sys.argv
                 put(user, domain, val)
             else:
-                print('Usage: %s user domain val' % sys.argv[0])
+                print 'Usage: %s user domain val' % sys.argv[0]
                 sys.exit(1)
 
 finally:
