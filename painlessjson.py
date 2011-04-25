@@ -44,11 +44,11 @@ try:
                     result['success'] = True
 
             contentType = 'application/json'
-            data = json.dumps(results)
+            data = json.dumps(result)
             if callback != None:
                 contentType = 'application/javascript'
                 data = '%s(%s)' % ( callback, data )
-            print "Content-type: %s\r\n\r\n" % type,
+            print "Content-type: %s\r\n\r\n" % contentType,
             print data
         else:
             import sys
