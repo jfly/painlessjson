@@ -19,11 +19,11 @@ try:
     if __name__ == "__main__":
         if 'QUERY_STRING' in os.environ:
             import cgi, cgitb
+            cgitb.enable()
             try:
                 import json
             except ImportError:
                 import simplejson as json
-            cgitb.enable()
 
             # TODO - error checking
             form = cgi.FieldStorage()
